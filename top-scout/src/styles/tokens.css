@@ -1,0 +1,59 @@
+:root {
+  --ts-black: #010102;
+  --ts-dark: #0b0f12;
+  --ts-dark-soft: #1a2520;
+  --ts-light: #d9e1e0;
+  --ts-green: #308946;
+  --ts-green-light: #3aa454;
+  --ts-bg: #f3f6f5;
+  --ts-card: #ffffff;
+  --ts-text: #18211e;
+  --ts-muted: #6b7571;
+  --ts-subtle: rgba(24, 33, 30, 0.45);
+  --ts-border: #dde5e3;
+  --ts-success: #308946;
+  --ts-amber: #b7791f;
+  --ts-warning: #b7791f;
+  --ts-danger: #b3261e;
+  --ts-error: #b3261e;
+  --ts-video-bg: #050706;
+  --ts-card-hover: #eef4f2;
+  --ts-progress-track: #e8eeec;
+  --ts-topbar-bg: #ffffff;
+  --ts-input-bg: #ffffff;
+  --ts-input-border: #dde5e3;
+  --ts-logo-text: #18211e;
+  --ts-radius: 14px;
+  --ts-radius-sm: 10px;
+  --ts-content-max: 1280px;
+  --ts-shadow: 0 8px 24px rgba(1, 1, 2, 0.08);
+  --ts-shadow-strong: 0 16px 34px rgba(1, 1, 2, 0.14);
+  --ts-font: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ts-mono: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+}
+
+[data-theme='dark'] {
+  --ts-dark: #d9e1e0;
+  --ts-dark-soft: #d9e1e0;
+  --ts-light: #d9e1e0;
+  --ts-bg: #0b0f12;
+  --ts-card: #121a1f;
+  --ts-text: #d9e1e0;
+  --ts-muted: rgba(217, 225, 224, 0.45);
+  --ts-subtle: rgba(217, 225, 224, 0.25);
+  --ts-border: rgba(217, 225, 224, 0.07);
+  --ts-success: #3aa454;
+  --ts-amber: #e8a838;
+  --ts-warning: #e8a838;
+  --ts-danger: #c0392b;
+  --ts-error: #c0392b;
+  --ts-video-bg: #050706;
+  --ts-card-hover: #172028;
+  --ts-progress-track: rgba(217, 225, 224, 0.1);
+  --ts-topbar-bg: #0b0f12;
+  --ts-input-bg: #0f181e;
+  --ts-input-border: rgba(217, 225, 224, 0.1);
+  --ts-logo-text: #d9e1e0;
+  --ts-shadow: none;
+  --ts-shadow-strong: 0 18px 36px rgba(0, 0, 0, 0.28);
+}

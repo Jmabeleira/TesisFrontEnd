@@ -1,0 +1,12 @@
+services:
+  frontend:
+    build:
+      context: .
+      target: development
+    ports:
+      - "5173:5173"
+    environment:
+      BACKEND_PROXY_TARGET: http://host.docker.internal:8000
+    volumes:
+      - .:/app
+      - /app/node_modules

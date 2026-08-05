@@ -1,0 +1,136 @@
+{
+  "hash": "38b56c8d",
+  "configHash": "10dc4589",
+  "lockfileHash": "e4457eea",
+  "browserHash": "d1b2fbc2",
+  "optimized": {
+    "@mui/icons-material": {
+      "src": "../../node_modules/@mui/icons-material/index.mjs",
+      "file": "@mui_icons-material.js",
+      "fileHash": "3e99edde",
+      "needsInterop": false
+    },
+    "@mui/material": {
+      "src": "../../node_modules/@mui/material/index.mjs",
+      "file": "@mui_material.js",
+      "fileHash": "24d463d6",
+      "needsInterop": false
+    },
+    "@mui/material/Button": {
+      "src": "../../node_modules/@mui/material/Button/index.mjs",
+      "file": "@mui_material_Button.js",
+      "fileHash": "0c11fac0",
+      "needsInterop": false
+    },
+    "@mui/material/Grid": {
+      "src": "../../node_modules/@mui/material/Grid/index.mjs",
+      "file": "@mui_material_Grid.js",
+      "fileHash": "5dd342bf",
+      "needsInterop": false
+    },
+    "@mui/material/Stack": {
+      "src": "../../node_modules/@mui/material/Stack/index.mjs",
+      "file": "@mui_material_Stack.js",
+      "fileHash": "76a3f5f0",
+      "needsInterop": false
+    },
+    "@mui/material/TextField": {
+      "src": "../../node_modules/@mui/material/TextField/index.mjs",
+      "file": "@mui_material_TextField.js",
+      "fileHash": "dee96d60",
+      "needsInterop": false
+    },
+    "@mui/material/styles": {
+      "src": "../../node_modules/@mui/material/styles/index.mjs",
+      "file": "@mui_material_styles.js",
+      "fileHash": "2f4ef45f",
+      "needsInterop": false
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "d3d1e43e",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "f629b468",
+      "needsInterop": false
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "c0650dc4",
+      "needsInterop": true
+    },
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "081bfe8e",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "Button-D2sZwltA": {
+      "file": "Button-D2sZwltA.js",
+      "isDynamicEntry": false
+    },
+    "DefaultPropsProvider-BQcRtwYO": {
+      "file": "DefaultPropsProvider-BQcRtwYO.js",
+      "isDynamicEntry": false
+    },
+    "Grid-Cx_vltBq": {
+      "file": "Grid-Cx_vltBq.js",
+      "isDynamicEntry": false
+    },
+    "Stack-DNQZM6lg": {
+      "file": "Stack-DNQZM6lg.js",
+      "isDynamicEntry": false
+    },
+    "TextField-Bb_r7rGL": {
+      "file": "TextField-Bb_r7rGL.js",
+      "isDynamicEntry": false
+    },
+    "createSimplePaletteValueFilter-UWEdag26": {
+      "file": "createSimplePaletteValueFilter-UWEdag26.js",
+      "isDynamicEntry": false
+    },
+    "createSvgIcon-BiyFiwCs": {
+      "file": "createSvgIcon-BiyFiwCs.js",
+      "isDynamicEntry": false
+    },
+    "outlinedInputClasses-DHgkQ_2Y": {
+      "file": "outlinedInputClasses-DHgkQ_2Y.js",
+      "isDynamicEntry": false
+    },
+    "react-CZunmVaX": {
+      "file": "react-CZunmVaX.js",
+      "isDynamicEntry": false
+    },
+    "react-dom-DlAeUGhR": {
+      "file": "react-dom-DlAeUGhR.js",
+      "isDynamicEntry": false
+    },
+    "requirePropFactory-DqOAYaqd": {
+      "file": "requirePropFactory-DqOAYaqd.js",
+      "isDynamicEntry": false
+    },
+    "styled-Bnwhpcsu": {
+      "file": "styled-Bnwhpcsu.js",
+      "isDynamicEntry": false
+    },
+    "styles-DbCwp3Bq": {
+      "file": "styles-DbCwp3Bq.js",
+      "isDynamicEntry": false
+    },
+    "useTheme-Cjr1qCSE": {
+      "file": "useTheme-Cjr1qCSE.js",
+      "isDynamicEntry": false
+    },
+    "utils-ajZGJ3FL": {
+      "file": "utils-ajZGJ3FL.js",
+      "isDynamicEntry": false
+    }
+  }
+}
