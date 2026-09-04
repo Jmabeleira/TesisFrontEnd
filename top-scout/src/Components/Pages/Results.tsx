@@ -79,7 +79,12 @@ function scoreColor(score: number) {
   return "var(--ts-error)";
 }
 
+const METRIC_TITLE_OVERRIDES: Record<string, string> = {
+  tecnica_carrera: "Técnica de Carrera",
+};
+
 function formatMetricName(name: string) {
+  if (METRIC_TITLE_OVERRIDES[name]) return METRIC_TITLE_OVERRIDES[name];
   const label = name.replaceAll("_", " ");
   return label.charAt(0).toUpperCase() + label.slice(1);
 }
@@ -100,14 +105,14 @@ function normalizeRepetitionScores(repeticiones: unknown[] | undefined) {
 
   return repeticiones.flatMap((entry, index) => {
     if (typeof entry === "number") {
-      return [{ repetition: index + 1, score: entry, durationSeconds: null }];
+      return [{ repetition: index + 1, score: entry, durationSeconds: null, criterio: null }];
     }
 
     if (typeof entry === "string") {
       const parsed = Number(entry);
       return Number.isNaN(parsed)
-        ? [{ repetition: index + 1, score: null, durationSeconds: null }]
-        : [{ repetition: index + 1, score: parsed, durationSeconds: null }];
+        ? [{ repetition: index + 1, score: null, durationSeconds: null, criterio: null }]
+        : [{ repetition: index + 1, score: parsed, durationSeconds: null, criterio: null }];
     }
 
     if (entry && typeof entry === "object") {
@@ -115,6 +120,7 @@ function normalizeRepetitionScores(repeticiones: unknown[] | undefined) {
       const maybeScore = record.score ?? record.puntaje ?? record.valor ?? record.rating;
       const maybeDuration = record.duration_seconds ?? record.durationSeconds ?? record.duracion_segundos ?? record.duracion_seconds ?? record.duration ?? record.duracion;
       const maybeRepetition = record.id ?? record.repeticion ?? record.rep ?? record.numero ?? record.index;
+      const maybeCriterio = record.criterio ?? record.criteria ?? record.comentario ?? record.observacion;
       const parsedScore = typeof maybeScore === "number" ? maybeScore : Number(maybeScore);
       const parsedDuration = typeof maybeDuration === "number" ? maybeDuration : Number(maybeDuration);
       const parsedRepetition = typeof maybeRepetition === "number"
@@ -124,10 +130,16 @@ function normalizeRepetitionScores(repeticiones: unknown[] | undefined) {
           : index + 1;
       const hasScore = maybeScore !== undefined && maybeScore !== null && !Number.isNaN(parsedScore);
       const hasDuration = maybeDuration !== undefined && maybeDuration !== null && !Number.isNaN(parsedDuration);
-      return [{ repetition: Number.isFinite(parsedRepetition) ? parsedRepetition : index + 1, score: hasScore ? parsedScore : null, durationSeconds: hasDuration ? parsedDuration : null }];
+      const criterio = typeof maybeCriterio === "string" && maybeCriterio.trim() ? maybeCriterio.trim() : null;
+      return [{
+        repetition: Number.isFinite(parsedRepetition) ? parsedRepetition : index + 1,
+        score: hasScore ? parsedScore : null,
+        durationSeconds: hasDuration ? parsedDuration : null,
+        criterio,
+      }];
     }
 
-    return [{ repetition: index + 1, score: null, durationSeconds: null }];
+    return [{ repetition: index + 1, score: null, durationSeconds: null, criterio: null }];
   });
 }
 
@@ -380,7 +392,7 @@ function Results() {
                 </Typography>
                 {selectedMetric.repetitionScores.length > 0 ? (
                   <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-                    {selectedMetric.repetitionScores.map(({ repetition, score, durationSeconds }) => {
+                    {selectedMetric.repetitionScores.map(({ repetition, score, durationSeconds, criterio }) => {
                       const hasScore = score !== null;
                       const displayValue = hasScore
                         ? String(score)
@@ -392,14 +404,21 @@ function Results() {
                       return (
                         <Box
                           key={`${selectedMetric.id}-${repetition}`}
-                          sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 1, px: 1, py: 0.75, borderRadius: 1, background: "rgba(48, 137, 70, 0.06)", border: "1px solid var(--ts-border)" }}
+                          sx={{ display: "flex", flexDirection: "column", gap: 0.4, px: 1, py: 0.75, borderRadius: 1, background: "rgba(48, 137, 70, 0.06)", border: "1px solid var(--ts-border)" }}
                         >
-                          <Typography sx={{ fontWeight: 600, fontSize: ".8rem", color: "var(--ts-dark)" }}>
-                            Rep {repetition}:
-                          </Typography>
-                          <Typography sx={{ fontWeight: 700, fontSize: ".8rem", color: colorValue }}>
-                            {displayValue}
-                          </Typography>
+                          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 1 }}>
+                            <Typography sx={{ fontWeight: 600, fontSize: ".8rem", color: "var(--ts-dark)" }}>
+                              Rep {repetition}:
+                            </Typography>
+                            <Typography sx={{ fontWeight: 700, fontSize: ".8rem", color: colorValue }}>
+                              {displayValue}
+                            </Typography>
+                          </Box>
+                          {criterio && (
+                            <Typography sx={{ fontSize: ".74rem", color: "var(--ts-muted)", lineHeight: 1.4 }}>
+                              {criterio}
+                            </Typography>
+                          )}
                         </Box>
                       );
                     })}
