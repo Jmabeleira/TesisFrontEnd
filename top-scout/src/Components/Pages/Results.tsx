@@ -100,7 +100,14 @@ function scoreLevel(score: number, repetitions: number) {
   return "A mejorar";
 }
 
-function normalizeRepetitionScores(repeticiones: unknown[] | undefined) {
+interface RepetitionScore {
+  repetition: number;
+  score: number | null;
+  durationSeconds: number | null;
+  criterio: string | null;
+}
+
+function normalizeRepetitionScores(repeticiones: unknown[] | undefined): RepetitionScore[] {
   if (!Array.isArray(repeticiones)) return [];
 
   return repeticiones.flatMap((entry, index) => {
@@ -392,7 +399,11 @@ function Results() {
                 </Typography>
                 {selectedMetric.repetitionScores.length > 0 ? (
                   <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-                    {selectedMetric.repetitionScores.map(({ repetition, score, durationSeconds, criterio }) => {
+                    {selectedMetric.repetitionScores.map((repetitionScore) => {
+                      const { repetition, score, durationSeconds } = repetitionScore;
+                      const criterio = "criterio" in repetitionScore && typeof repetitionScore.criterio === "string"
+                        ? repetitionScore.criterio
+                        : null;
                       const hasScore = score !== null;
                       const displayValue = hasScore
                         ? String(score)
@@ -416,6 +427,7 @@ function Results() {
                           </Box>
                           {criterio && (
                             <Typography sx={{ fontSize: ".74rem", color: "var(--ts-muted)", lineHeight: 1.4 }}>
+                              <Box component="span" sx={{ fontWeight: 700, color: "var(--ts-text)" }}>Criterio: </Box>
                               {criterio}
                             </Typography>
                           )}
