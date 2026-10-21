@@ -1,0 +1,132 @@
+.ts-page {
+  min-height: 100vh;
+  background: var(--ts-bg);
+  color: var(--ts-text);
+}
+
+.ts-page--center {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px;
+}
+
+.ts-container {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding-top: 56px;
+}
+
+.ts-container--wide {
+  max-width: var(--ts-content-max);
+  padding-top: 24px;
+}
+
+.ts-header {
+  margin-bottom: 24px;
+}
+
+.ts-title {
+  color: var(--ts-dark);
+  font-size: 2.35rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.ts-subtitle {
+  margin-top: 8px;
+  color: var(--ts-muted);
+  font-size: 0.95rem;
+}
+
+.ts-card {
+  background: var(--ts-card);
+  border: 1px solid var(--ts-border);
+  border-radius: var(--ts-radius);
+  box-shadow: var(--ts-shadow);
+}
+
+.ts-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.ts-logo--topbar {
+  width: 88px;
+  height: 64px;
+}
+
+.ts-login {
+  width: min(100%, 420px);
+  margin-top: 8vh;
+  padding: 28px;
+}
+
+.ts-login__title {
+  margin-bottom: 22px;
+  color: var(--ts-dark);
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.ts-scroll {
+  scrollbar-color: rgba(48, 137, 70, 0.36) transparent;
+  scrollbar-width: thin;
+}
+
+.ts-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ts-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ts-scroll::-webkit-scrollbar-thumb {
+  background: rgba(48, 137, 70, 0.36);
+  border-radius: 999px;
+}
+
+.ts-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(48, 137, 70, 0.56);
+}
+
+.MuiButton-contained {
+  background-color: var(--ts-green) !important;
+  box-shadow: 0 10px 24px rgba(48, 137, 70, 0.2) !important;
+  text-transform: none !important;
+  font-weight: 700 !important;
+}
+
+.MuiButton-contained:hover {
+  background-color: var(--ts-green-light) !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--ts-green) !important;
+}
+
+.MuiInputLabel-root.Mui-focused {
+  color: var(--ts-green) !important;
+}
+
+@media (max-width: 768px) {
+  .ts-page--center {
+    padding: 18px;
+  }
+
+  .ts-container {
+    padding-top: 28px;
+  }
+
+  .ts-title {
+    font-size: 1.75rem;
+  }
+
+  .ts-login {
+    margin-top: 4vh;
+    padding: 22px;
+  }
+}
