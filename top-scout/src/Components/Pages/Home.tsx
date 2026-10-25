@@ -21,6 +21,7 @@ import {
   CompareArrows as CompareArrowsIcon,
 } from "@mui/icons-material";
 import { styled, keyframes } from "@mui/material/styles";
+import { exerciseLabel } from "../../constants/exercises";
 import { fetchAllJobs, type BackendJob } from "../../services/jobsApi";
 import { formatDate } from "../../utils/format";
 
@@ -134,10 +135,10 @@ function mapJobStatus(status: BackendJob["status"]): AnalysisStatus {
 }
 
 function mapBackendJob(job: BackendJob): AnalysisJob {
-  const exerciseLabel = job.exercise_id ? `Ejercicio ${job.exercise_id}` : "Sesión";
+  const exerciseName = job.exercise_id ? exerciseLabel(job.exercise_id) : "Sesión";
   const filename = job.original_filename ? ` · ${job.original_filename}` : "";
   const sessionName = job.session_name?.trim();
-  const title = sessionName ? `${sessionName} · ${exerciseLabel}` : `${exerciseLabel}${filename}`;
+  const title = sessionName ? `${sessionName} · ${exerciseName}` : `${exerciseName}${filename}`;
   const status = mapJobStatus(job.status);
   const displayDate =
     status === "processing"

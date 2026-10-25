@@ -13,6 +13,7 @@ import {
 } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import ExerciseResultCard, { type ExerciseResult } from "../Cards/exercicesCard";
+import { exerciseLabel } from "../../constants/exercises";
 import type { BackendArtifact, ResultsResponse } from "../../services/jobsApi";
 import {
   formatMetricName, formatMetricTitle, formatSprintTime, isTimeMetricId, normalizeRepetitionScores, scoreColor,
@@ -66,15 +67,24 @@ function isChartArtifact(artifact: BackendArtifact) {
     || artifact.content_type?.startsWith("image/") === true;
 }
 
-function chartCopy(name: string) {
-  const normalizedName = name.toLowerCase();
-  if (normalizedName.includes("acceler")) {
-    return { title: "Aceleración y desaceleración", subtitle: "Evolución del ritmo durante cada repetición." };
-  }
-  if (normalizedName.includes("distance") || normalizedName.includes("distancia")) {
-    return { title: "Distancia pie-balón", subtitle: "Variación de la distancia respecto al balón durante el ejercicio." };
-  }
-  return { title: formatMetricName(name), subtitle: "Representación gráfica generada durante el análisis." };
+/* Título de cada gráfica según el `name` exacto del artefacto que informa el backend. */
+const CHART_COPY: Record<string, { title: string; subtitle: string }> = {
+  acceleration_chart: { title: "Aceleración y desaceleración", subtitle: "Velocidad en función de la distancia recorrida de cono a cono en cada repetición." },
+  ball_distance_chart: { title: "Distancia pie-balón", subtitle: "Variación de la distancia entre el pie y el balón durante la conducción." },
+  sprint_distance_chart: { title: "Distancia frente a tiempo", subtitle: "Avance longitudinal de cada repetición desde la salida." },
+  sprint_speed_chart: { title: "Velocidad frente a tiempo", subtitle: "Velocidad estimada de cada repetición desde la salida." },
+  sprint_speed_distance_chart: { title: "Velocidad frente a distancia", subtitle: "Velocidad estimada según el avance longitudinal de cada repetición." },
+};
+
+/* Gráficas no mapeadas: título a partir del nombre de archivo, que el backend genera en español. */
+function chartTitleFromFilename(filename?: string) {
+  const base = filename?.replace(/\.[^.]+$/, "").replace(/^.*ejercicio-\d+_/i, "").replaceAll("_", " ").trim();
+  return base ? base.charAt(0).toUpperCase() + base.slice(1) : "Gráfica del análisis";
+}
+
+function chartCopy({ name, filename }: BackendArtifact) {
+  return CHART_COPY[name]
+    ?? { title: chartTitleFromFilename(filename), subtitle: "Representación gráfica generada durante el análisis." };
 }
 
 function Results() {
@@ -210,7 +220,7 @@ function Results() {
             <Typography className="ts-subtitle">Evaluación automática generada a partir del video procesado.</Typography>
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mt: 2 }}>
               {sessionName && <Chip label={sessionName} size="small" sx={{ ...contextChip, fontWeight: 700 }} />}
-              <Chip label={`Ejercicio ${exerciseType}`} size="small" sx={contextChip} />
+              <Chip label={exerciseLabel(exerciseType)} size="small" sx={contextChip} />
               {exerciseType !== "3" && <Chip label={`Puntaje promedio: ${overallScore}/5`} size="small" sx={{ ...contextChip, color: scoreColor(overallScore) }} />}
               <Chip icon={<CheckCircleIcon />} label={`Estado: ${completed ? "Completado" : data.status}`} size="small" sx={{ ...contextChip, "& .MuiChip-icon": { color: completed ? "var(--ts-success)" : "var(--ts-warning)", fontSize: 16 } }} />
               <Chip icon={<MovieIcon />} label="Video procesado" size="small" sx={{ ...contextChip, "& .MuiChip-icon": { color: "var(--ts-green)", fontSize: 16 } }} />
@@ -235,8 +245,9 @@ function Results() {
                 {hasCharts && <Box component="section" sx={{ width: "100%" }}>
                   <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1.5 }}><ChartIcon sx={{ color: "var(--ts-green)", fontSize: 21 }} /><Typography component="h2" sx={{ fontWeight: 750, fontSize: "1.15rem", color: "var(--ts-dark)" }}>Análisis gráfico</Typography></Box>
                   <Box sx={{ width: "100%", display: "flex", flexDirection: "column", gap: 2 }}>
-                    {chartArtifacts.map(({ name }) => {
-                      const { title, subtitle } = chartCopy(name);
+                    {chartArtifacts.map((artifact) => {
+                      const { name } = artifact;
+                      const { title, subtitle } = chartCopy(artifact);
                       return <Panel key={name} elevation={0}>
                       <Typography component="h3" sx={{ fontWeight: 700, fontSize: ".98rem", color: "var(--ts-dark)" }}>{title}</Typography>
                       <Typography sx={{ color: "var(--ts-muted)", fontSize: ".78rem", mt: .35, mb: 1.5 }}>{subtitle}</Typography>
